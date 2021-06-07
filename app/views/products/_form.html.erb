@@ -1,42 +1,47 @@
-<%= form_with(model: product) do |form| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+<%= simple_form_for(@product) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <% if @product.errors.any? %>
+      <div class="errors">
+        <p><%= @product.errors.count %> Prevented this product from saving</p>
+        <ul>
+          <% @product.errors.full_messages.each do |msg| %>
+            <li><%= msg  %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% product.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+   <div class="field">
+      <div class="control">
+        <%= f.input :title, required: true, autofocus: true, input_html: { class: "input"}, wrapper: false, label_html: { class: "label" } %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+    <div class="field">
+      <div class="control">
+        <%= f.input :description, required: true, autofocus: true, input_html: { class: "textarea" }, wrapper: false, label_html: { class: "label" } %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+    <div class="field">
+      <div class="control">
+          <%= f.input :base_price, required: true, autofocus: true, input_html: { class: "number"}, wrapper: false, label_html: { class: "label" } %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :base_price %>
-    <%= form.text_field :base_price %>
-  </div>
+    <div class = "field">
+      <div class="control">
+        <%= f.input :expiry_time, required: true, autofocus: true, input_html: { class: "time"}, wrapper: false, label_html: { class: "label" } %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :expiry_time %>
-    <%= form.datetime_select :expiry_time %>
-  </div>
+    <div class="field">
+      <div class="control">
+        <%= f.input :images, as: :file,  input_html: { multiple: true, direct_upload: true }, label: false, wrapper: false %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.button :submit, class: 'button is-dark mt3' %>
 <% end %>
