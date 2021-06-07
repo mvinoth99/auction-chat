@@ -1,11 +1,10 @@
-<div class="title is-1">Products up for auctions!</div>
-<div class="subtitle is-5">Looking to get rid of your old goodies? Auction it now!</div>
-
-<div class="columns">
-  <% @products.each do |product| %>
-    <div class="column is-3">
-      <% render 'product' ,product:product %>
-    </div>
-  <% end %>
+<h1 class="title is-1">Products</h1>
+<p class="subtitle is-5">Looking to get rid of gear but not lose money. Trade some of your gear!</p>
+<div class="columns is-multiline">
+<% @products.each do |product| %>
+  <div class="column is-3">
+    <%= render product, product: product %>
+  </div>
+<% end %>
 </div>
 
