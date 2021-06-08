@@ -33,9 +33,9 @@
       <div class="inline-block"><%= @product.user.name %></div>
     </div>
     <% if user_signed_in? && current_user.id != @product.user_id %>
-      <%= link_to "Message #{@product.user.name}", "#" ,class: "button is-link" %>
+      <%= link_to "Message #{@product.user.name}", conversations_path(sender_id:current_user.id,recipient_id:@product.user.id),method: 'post' ,class: "button is-link" %>
     <% elsif user_signed_in? && current_user.id == @product.user_id  %>
-      <%= link_to "Conversations", "#"%>
+      <%= link_to "Conversations", conversations_path%>
     <% else %>
     <%= link_to "Sign up to message #{@product.user.name}", new_user_registration_path %>
     <% end %>
