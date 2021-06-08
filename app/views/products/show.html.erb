@@ -2,7 +2,7 @@
   <div class="column is-8">
     <h1 class="title is-1"><%= @product.title %></h1>
     <div class="content">
-      <p class="pb3 border-bottom">Post <%= time_ago_in_words(@product.created_at) %> ago</p>
+      <p class="pb3 border-bottom">Posted <%= time_ago_in_words(@product.created_at) %> ago</p>
       <div class="pt1"><%= sanitize markdown_to_html(@product.description) %></div>
     </div>
 
@@ -33,9 +33,9 @@
       <div class="inline-block"><%= @product.user.name %></div>
     </div>
     <% if user_signed_in? && current_user.id != @product.user_id %>
-      <%= link_to "Message #{@product.user.name}", products_path %>
+      <%= link_to "Message #{@product.user.name}", "#" ,class: "button is-link" %>
     <% elsif user_signed_in? && current_user.id == @product.user_id  %>
-      <%= link_to "Conversations", products_path %>
+      <%= link_to "Conversations", "#"%>
     <% else %>
     <%= link_to "Sign up to message #{@product.user.name}", new_user_registration_path %>
     <% end %>

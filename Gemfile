@@ -67,3 +67,10 @@ group :development, :test do
   gem 'guard'
   gem 'guard-livereload'
 end
+
+group :production do
+  gem 'better_errors'
+  gem 'guard'
+  gem 'guard-livereload'
+  gem 'pg'
+end
