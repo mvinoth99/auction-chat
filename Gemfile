@@ -59,6 +59,8 @@ gem 'bulma-rails'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'kramdown'
+gem "binding_of_caller"
+gem 'kramdown-parser-gfm' 
 
 group :development, :test do
   gem 'better_errors'

@@ -5,4 +5,13 @@ module ApplicationHelper
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
     image_tag(gravatar_url, alt: user.name, class: "border-radius-50")
   end
+
+  def markdown_to_html(text)
+    Kramdown::Document.new(text, input: "GFM").to_html
+  end
+
+  def product_author(trade)
+    user_signed_in? && current_user.id == trade.user_id
+  end
+
 end
