@@ -15,6 +15,46 @@
         <% end %>
       </div>
     <% end %>
+
+    <% if user_signed_in? and current_user.id != @product.user.id%>
+
+      <h1 class="title is-5">Start Bidding!</h1>
+      <%= form_for [@product, @bid] do |f| %>
+        <%= f.number_field :price,class:"input is-normal", placeholder: "Enter the amount you want to bid" %>
+        <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
+        <div class="text-align-right">
+          <%= f.submit "Place Bid", class: "button is-link is-small is-left mt3 mb3" %>
+        </div>
+      <% end %>
+    <%end%>
+    <% if @product.bids.count > 0%>
+      <h1 class="title is-5 mt5 mb2"> Top bids for this product </h1>
+    <% else %>
+      <h1 class="title is-5 mt5 mb2"> No bids so far! </h1>
+    <% end %>
+    <% if user_signed_in? %>
+      <% @product.bids.each do |bid|%>
+          <% if bid.user %>
+          <article class="message is-dark">
+            <div class="box">
+              <div class="inline-block nudge-down-10"><%= gravatar_for bid.user, size: 32 %></div>
+              <div class="inline-block"><%= bid.user.name %></div>
+              <div class = "inline-block">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-rupee-sign"></i>
+                  </span>
+                  <span><%= bid.price %></span>
+                </span>
+                
+                <%16.times do%>&emsp;<%end%> Bidded <%= time_ago_in_words(bid.created_at)  %> ago
+              
+              </div>
+            </div>
+            </article>
+          <% end %>
+      <% end %>
+    <% end %>
   </div>
 
   <div class="column is-3 is-offset-1">

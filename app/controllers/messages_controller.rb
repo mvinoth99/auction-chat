@@ -40,3 +40,4 @@ class MessagesController < ApplicationController
       @conversation = Conversation.find(params[:conversation_id])
     end
 end
+
