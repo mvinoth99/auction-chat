@@ -7,9 +7,16 @@ class Product < ApplicationRecord
 
   def expire
     self.active_status = false
-    # if self.bids
-    #   self.bids.where(price: self.bids.maximum('price')).first.won = true
-    # end
+    if self.bids
+      bids = self.bids
+      bids.each do |bid|
+        if bid.price == self.bids.maximum('price')
+          bid.won = true
+          bid.save
+        end
+      end
+      #self.bids.where(price: self.bids.maximum('price')).first.won = true
+     end
     self.save
   end
 
