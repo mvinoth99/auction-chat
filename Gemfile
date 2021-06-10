@@ -62,7 +62,7 @@ gem 'simple_form'
 gem 'kramdown'
 gem "binding_of_caller"
 gem 'kramdown-parser-gfm'
-
+gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'better_errors'
