@@ -10,10 +10,16 @@ class Product < ApplicationRecord
     if self.bids
       bids = self.bids
       bids.each do |bid|
+        user = bid.user
         if bid.price == self.bids.maximum('price')
           bid.won = true
-          bid.save
+          user.balance -= bid.price
+          user.blocked_balance -= bid.price
+        else
+          user.blocked_balance -= bid.price
         end
+        user.save
+        bid.save
       end
       #self.bids.where(price: self.bids.maximum('price')).first.won = true
      end

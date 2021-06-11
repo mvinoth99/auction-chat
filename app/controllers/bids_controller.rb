@@ -13,6 +13,11 @@ class BidsController < ApplicationController
 
   def create
     @bid = @product.bids.new(bid_params)
+    user = @bid.user
+    if(@bid.price > user.balance-user.blocked_balance)
+      redirect_to @product,alert: 'Insufficient balance!'
+      return 
+    end
     if @product.bids.maximum('price')
       if (@bid.price < @product.base_price)
         redirect_to @product,alert: 'Bid price must be higher than the base price'
@@ -26,6 +31,9 @@ class BidsController < ApplicationController
     end
     @bid = @product.bids.new(bid_params)
     @bid.product_id = @product.id
+    #user.balance = user.balance - @bid.price
+    user.blocked_balance += @bid.price
+    user.save
     @bid.save
     redirect_to @product
   end
