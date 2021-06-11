@@ -1,16 +1,48 @@
 <div class="columns">
   <div class="column is-8">
-    <h1 class="title is-1"><%= @product.title %></h1>
+    <table>
+    <tr>
+    <td>
+    <div>
+        <h1 class="title is-1"><%= @product.title %></h1>
+    </div>
+    </td>
+
+    <td>
+    <div>
+      <% if @product.active_status == true %>
+        &emsp;
+     
+          <span class="tag is-success inline-block nudge-down-10"> Active</span>
+  
+        
+        
+      <% else %>
+        &emsp;
+        <span class="tag is-warning nudge-down-10">Complete</span>
+      <% end %>
+    </div>
+    </td>
+
+    <td>
+    <div>
+              <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+          <div class="tags has-addons nudge-down-2">
+            &emsp;
+            <span class="tag is-dark nudge-down-10">Base price</span>
+            <span class="tag is-info nudge-down-10">Rs. <%= @product.base_price %></span>
+          </div>
+        </div>
+    </div>
+    </td>
+    </tr>
+    </table>  
+    
     <div class="content">
       <div class="pb3 border-bottom">
       <p >Posted <%= time_ago_in_words(@product.created_at) %> ago</p>
-      <p> Base price: Rs. <%= @product.base_price %></p>
-      <p> Expires in: <%= distance_of_time_in_words(Time.now, @product.expiry_time)%> </p>
-      <% if @product.active_status == true %>
-        <p> Status : Active </p>
-      <% else %>
-        <p> Status : Completed </p>
-      <% end %>
+      
       </div>
       <div class="pt1"><%= sanitize markdown_to_html(@product.description) %></div>
     </div>
@@ -37,9 +69,13 @@
       <% end %>
     <%end%>
     <% if @product.bids.count > 0%>
-      <h1 class="title is-5 mt5 mb2"> Top bid for this product </h1>
+      <h1 class="title is-5 mt5 mb2"> Top bid for this product <% if @product.active_status == true %>
+       [<%= distance_of_time_in_words(Time.now, @product.expiry_time)%> remaining]
+      <%end%> </h1>
     <% else %>
-      <h1 class="title is-5 mt5 mb2"> No bids so far! </h1>
+      <h1 class="title is-5 mt5 mb2"> No bids so far! [<% if @product.active_status == true %>
+       [<%= distance_of_time_in_words(Time.now, @product.expiry_time)%> remaining]
+      <%end%> </h1>
     <% end %>
     <% if user_signed_in? %>
 
