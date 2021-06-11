@@ -1,0 +1,33 @@
+<% if user_signed_in? %>
+
+  <div class="columns">
+  <div class="column is-9">
+  <h1 class="title is-3"> Your bids </h1>
+  <table class="table is-hoverable is-bordered is-striped is-fullwidth">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @bids.each do |bid|%>
+        <% if bid.user == current_user %>
+        <tr <%if bid.user == current_user and bid.won == 'Won' %>class="is-selected"<%end%> >
+          <td> <%= link_to bid.product.title,product_path(bid.product) %></td>
+          <td> <%= bid.price %></td>
+          <td> <%= bid.won%></td>
+        </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+  <div class="column">
+    <h1 class="title is-5"> Your balance: Rs.<%=current_user.balance%> </h1>
+  </div>
+  </div>
+<% else %>
+  <h1 class="title is-3"> Please sign in to view your bids </h1>
+<% end %>
