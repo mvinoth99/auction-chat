@@ -29,6 +29,14 @@ class BidsController < ApplicationController
         return 
       end
     end
+    if @product.bids.count > 0
+      prev_highest_bid = @product.bids.where(price:@product.bids.maximum('price')).first
+      prev_highest_bid.won = "Lost"
+      prev_highest_bid.save
+      prev_user = @product.bids.where(price:@product.bids.maximum('price')).first.user
+      prev_user.blocked_balance -= @product.bids.maximum('price')
+      prev_user.save
+    end
     @bid = @product.bids.new(bid_params)
     @bid.product_id = @product.id
     #user.balance = user.balance - @bid.price

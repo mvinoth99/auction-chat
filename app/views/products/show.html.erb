@@ -37,14 +37,15 @@
       <% end %>
     <%end%>
     <% if @product.bids.count > 0%>
-      <h1 class="title is-5 mt5 mb2"> Top bids for this product </h1>
+      <h1 class="title is-5 mt5 mb2"> Top bid for this product </h1>
     <% else %>
       <h1 class="title is-5 mt5 mb2"> No bids so far! </h1>
     <% end %>
     <% if user_signed_in? %>
-      <% @product.bids.each do |bid|%>
-          <% if bid.user %>
-          <article class="message is-dark">
+
+        <% if @product.bids.count>0 %>
+          <% bid = @product.bids.where(price: @product.bids.maximum('price')).first%>
+            <article class="message is-dark">
             <div class="box">
               <div class="inline-block nudge-down-10"><%= gravatar_for bid.user, size: 32 %></div>
               <div class="inline-block"><%= bid.user.name %></div>
@@ -62,7 +63,6 @@
             </div>
             </article>
           <% end %>
-      <% end %>
     <% end %>
   </div>
 

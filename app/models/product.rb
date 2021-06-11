@@ -4,19 +4,20 @@ class Product < ApplicationRecord
   has_many_attached :images, dependent: :destroy
   has_many :bids , dependent: :destroy
 
-
   def expire
+    owner = nil
     self.active_status = false
     if self.bids
       bids = self.bids
       bids.each do |bid|
         user = bid.user
         if bid.price == self.bids.maximum('price')
-          bid.won = true
+          bid.won = "Won"
           user.balance -= bid.price
           user.blocked_balance -= bid.price
-        else
-          user.blocked_balance -= bid.price
+          owner = bid.product.user
+          owner.balance += bid.price
+          owner.save
         end
         user.save
         bid.save

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_10_094653) do
+ActiveRecord::Schema.define(version: 2021_06_11_072018) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_06_10_094653) do
     t.integer "product_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "won", default: false
+    t.string "won", default: "Leading"
     t.index ["product_id"], name: "index_bids_on_product_id"
     t.index ["user_id"], name: "index_bids_on_user_id"
   end
