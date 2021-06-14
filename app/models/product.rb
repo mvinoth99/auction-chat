@@ -3,7 +3,10 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many_attached :images, dependent: :destroy
   has_many :bids , dependent: :destroy
+  validates_presence_of :title, :description, :base_price, :expiry_time, :images
+  validates_numericality_of :base_price, :greater_than => 0.0
 
+  
   def expire
     owner = nil
     self.active_status = false

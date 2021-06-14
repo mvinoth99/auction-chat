@@ -14,9 +14,7 @@
         &emsp;
      
           <span class="tag is-success inline-block nudge-down-10"> Active</span>
-  
-        
-        
+
       <% else %>
         &emsp;
         <span class="tag is-warning nudge-down-10">Complete</span>
@@ -73,7 +71,7 @@
        [<%= distance_of_time_in_words(Time.now, @product.expiry_time)%> remaining]
       <%end%> </h1>
     <% else %>
-      <h1 class="title is-5 mt5 mb2"> No bids so far! [<% if @product.active_status == true %>
+      <h1 class="title is-5 mt5 mb2"> No bids so far! <% if @product.active_status == true %>
        [<%= distance_of_time_in_words(Time.now, @product.expiry_time)%> remaining]
       <%end%> </h1>
     <% end %>
@@ -108,7 +106,7 @@
         <p class="f6 pb1">Author actions:</p>
         <div class="button-group">
           <%= link_to "Edit product: #{@product.title}", edit_product_path(@product), class: 'button is-small' %>
-          <%= link_to "Back", products_path, class: "button is-small" %>
+          
         </div>
       </div>
     <% end %>

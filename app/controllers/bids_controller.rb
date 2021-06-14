@@ -14,15 +14,16 @@ class BidsController < ApplicationController
   def create
     @bid = @product.bids.new(bid_params)
     user = @bid.user
+
     if(@bid.price > user.balance-user.blocked_balance)
       redirect_to @product,alert: 'Insufficient balance!'
       return 
     end
+    if (@bid.price < @product.base_price)
+      redirect_to @product,alert: 'Bid price must be higher than the base price'
+      return 
+    end
     if @product.bids.maximum('price')
-      if (@bid.price < @product.base_price)
-        redirect_to @product,alert: 'Bid price must be higher than the base price'
-        return 
-      end
       if(@bid.price <= @product.bids.maximum('price'))
         #flash[:error] = "Bid price must be higher than previous highest bid"
         redirect_to @product,alert: 'Bid price must be higher than previous highest bid'

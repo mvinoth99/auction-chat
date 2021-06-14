@@ -63,6 +63,7 @@ gem 'kramdown'
 gem "binding_of_caller"
 gem 'kramdown-parser-gfm'
 gem 'delayed_job_active_record'
+gem 'validates_timeliness', '~> 6.0.0.alpha1'
 
 group :development, :test do
   gem 'better_errors'
