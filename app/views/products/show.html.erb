@@ -75,7 +75,7 @@
        [<%= distance_of_time_in_words(Time.now, @product.expiry_time)%> remaining]
       <%end%> </h1>
     <% end %>
-    <% if user_signed_in? %>
+    
 
         <% if @product.bids.count>0 %>
           <% bid = @product.bids.where(price: @product.bids.maximum('price')).first%>
@@ -97,7 +97,7 @@
             </div>
             </article>
           <% end %>
-    <% end %>
+    
   </div>
 
   <div class="column is-3 is-offset-1">
