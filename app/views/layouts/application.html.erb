@@ -54,6 +54,15 @@
                   <span></span>
                 </div>
                 <div class="navbar-brand">
+                  <%= link_to myproducts_path, class:"navbar-item" do %>
+                    <h1 class="sub-title is-6 has-text-white"><%= "My products" %></h1>
+                  <% end  %>
+                <div class="navbar-burger burger" data-target="navbar">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="navbar-brand">
                   <%= link_to new_product_path, class:"navbar-item" do %>
                     <h1 class="sub-title is-6 has-text-white"><%= "Add product" %></h1>
                   <% end  %>

@@ -4,7 +4,17 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    #@products = Product.all
+    @products = []
+    if user_signed_in?
+      Product.all.each do |product|
+        if current_user.id != product.user_id
+          @products.append(product)
+        end
+      end
+    else
+      @products = Product.all
+    end
   end
 
   # GET /products/1 or /products/1.json
@@ -55,6 +65,17 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def myproducts
+    @myproducts = []
+    if user_signed_in?
+      Product.all.each do |product|
+        if product.user_id == current_user.id
+          @myproducts.append(product)
+        end
+      end
     end
   end
 

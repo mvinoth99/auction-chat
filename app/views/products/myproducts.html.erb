@@ -1,0 +1,7 @@
+<div class="columns is-multiline">
+<% @myproducts.each do |product| %>
+  <div class="column is-3">
+    <%= render product, product: product %>
+  </div>
+<% end %>
+</div>

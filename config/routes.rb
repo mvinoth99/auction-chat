@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-
+  get 'myproducts', to: 'products#myproducts'
   get 'myorders' , to:'orders#index'
   resources :products do 
     resources :bids
