@@ -4,7 +4,17 @@ class Product < ApplicationRecord
   has_many_attached :images, dependent: :destroy
   has_many :bids , dependent: :destroy
   validates_presence_of :title, :description, :base_price, :expiry_time, :images
+  validates :title ,length: { maximum: 50 }
+  validates :description, length: {maximum:5000}
   validates_numericality_of :base_price, :greater_than => 0.0
+  validate :validate_images
+
+  
+  def validate_images
+    return if images.count <= 4
+
+    errors.add(:images, 'You can upload max 4 images')
+  end
 
   
   def expire
